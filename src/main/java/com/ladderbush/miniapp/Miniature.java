@@ -2,8 +2,10 @@ package com.ladderbush.miniapp;
 
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 
 enum Progress {
@@ -13,13 +15,20 @@ enum Progress {
 }
 
 @Entity
+@Table (name = "Miniatures")
 public class Miniature {
 
     @GeneratedValue
     @Id
     private Long id;
+
+    @Column (name = "Name")
     private String name;
+
+    @Column (name = "Scale")
     private int scale;
+
+    @Column (name = "Progress")
     private Progress progress;
 
     public Miniature() {}

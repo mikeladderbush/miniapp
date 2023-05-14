@@ -1,31 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import SearchComponent from './SearchComponent';
+import AddDataComponent from './AddDataComponent';
+
 
 function MyComponent() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:8080/miniatures')
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
 
   return (
     <div>
-      <h1>My Data</h1>
-      <ul>
-        {data.map(item => (
-          <li key={item.id}>
-            <h2>{item.name}</h2>
-            <p>{item.scale}</p>
-            <p>{item.progress}</p>
-          </li>
-        ))}
-      </ul>
+      <h1>My Miniature Catalog</h1>
+      <p>this is my website to keep track of my miniatures!</p>
+      <p>search a mini!</p>
+      <SearchComponent />
+      <AddDataComponent />
     </div>
   );
 }

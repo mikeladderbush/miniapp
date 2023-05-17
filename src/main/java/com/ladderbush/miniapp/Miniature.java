@@ -12,7 +12,7 @@ enum Progress {
     FINISHED
 }
 
-@Entity
+@Entity(name = "Miniature")
 public class Miniature {
 
     @GeneratedValue

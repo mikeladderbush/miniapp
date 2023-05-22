@@ -4,8 +4,8 @@ import axios from 'axios';
 function AddDataComponent() {
     const [data, setFormData] = useState({
         name: '',
-        age: '',
-        email: ''
+        scale: '',
+        progress: ''
     });
 
     const handleInputChange = (event) => {
@@ -23,7 +23,7 @@ function AddDataComponent() {
             .catch((error) => {
                 console.error('Error adding data:', error);
             });
-        setFormData({ name: '', age: '', email: '' });
+        setFormData({ name: '', scale: '', progress: '' });
     };
 
     return (

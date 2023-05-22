@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchComponent from './SearchComponent';
 import AddDataComponent from './AddDataComponent';
+import PrintToFile from './PrintToFile';
 
 
 function MyComponent() {
@@ -12,6 +13,7 @@ function MyComponent() {
       <p>search a mini!</p>
       <SearchComponent />
       <AddDataComponent />
+      <PrintToFile />
     </div>
   );
 }

@@ -22,7 +22,7 @@ function SearchComponent() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    const results = jsonData.filter((item) => 
+    const results = jsonData.filter((item) =>
       item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setSearchResults(results);

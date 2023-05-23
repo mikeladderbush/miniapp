@@ -2,6 +2,7 @@ import React from 'react';
 import SearchComponent from './SearchComponent';
 import AddDataComponent from './AddDataComponent';
 import PrintToFile from './PrintToFile';
+import LoginComponent from './LoginComponent';
 
 
 function MyComponent() {
@@ -14,6 +15,7 @@ function MyComponent() {
       <SearchComponent />
       <AddDataComponent />
       <PrintToFile />
+      <LoginComponent />
     </div>
   );
 }

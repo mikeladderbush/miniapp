@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 
@@ -20,6 +21,17 @@ public class Miniature {
     private String progress;
 
     private int scale;
+    
+    @Lob
+    private byte[] image;
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] bs) {
+        this.image = bs;
+    }
 
     public Miniature() {
     }

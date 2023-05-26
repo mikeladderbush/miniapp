@@ -1,4 +1,4 @@
-package com.ladderbush.miniapp;
+package com.ladderbush.miniapp.ErrorHandling;
 
 class MiniatureNotFoundException extends RuntimeException {
 

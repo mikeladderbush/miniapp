@@ -1,10 +1,7 @@
 import React from 'react';
-import SearchComponent from './SearchComponent';
-import AddDataComponent from './AddDataComponent';
-import PrintToFile from './PrintToFile';
-import LoginComponent from './LoginComponent';
-import ImageProcessor from './ImageProcessor';
-
+import SearchComponent from './Components/SearchComponent';
+import AddDataComponent from './Components/AddDataComponent';
+import PrintToFile from './Components/PrintToFile';
 
 function MyComponent() {
 
@@ -15,7 +12,6 @@ function MyComponent() {
       <SearchComponent />
       <AddDataComponent />
       <PrintToFile />
-      <ImageProcessor />
     </div>
   );
 }

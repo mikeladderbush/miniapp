@@ -1,4 +1,4 @@
-package com.ladderbush.miniapp;
+package com.ladderbush.miniapp.Services;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+
+import com.ladderbush.miniapp.Entities.Miniature;
+import com.ladderbush.miniapp.Repositories.MiniatureRepository;
 
 @RestController
 @Service
@@ -52,7 +53,6 @@ public class RepositoryService {
                     miniature.setName(newMiniature.getName());
                     miniature.setScale(newMiniature.getScale());
                     miniature.setProgress(newMiniature.getProgress());
-                    miniature.setImage(newMiniature.getImage());
                     return repository.save(miniature);
                 })
                 .orElseGet(() -> {

@@ -28,6 +28,7 @@ public class RepositoryService {
         this.repository = repository;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/miniatures")
     List<Miniature> all() {
         return repository.findAll();
@@ -36,15 +37,18 @@ public class RepositoryService {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/miniatures")
     Miniature newMiniature(@RequestBody Miniature newMiniature) {
+
         return repository.save(newMiniature);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/miniatures/{id}")
     Optional<Miniature> one(@PathVariable Long id) {
 
         return repository.findById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/miniatures/{id}")
     Miniature replaceEmployee(@RequestBody Miniature newMiniature, @PathVariable Long id) {
 
@@ -53,6 +57,8 @@ public class RepositoryService {
                     miniature.setName(newMiniature.getName());
                     miniature.setScale(newMiniature.getScale());
                     miniature.setProgress(newMiniature.getProgress());
+                    miniature.setPage(newMiniature.getPage());
+
                     return repository.save(miniature);
                 })
                 .orElseGet(() -> {
@@ -61,6 +67,7 @@ public class RepositoryService {
                 });
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/miniatures/{id}")
     void deleteMiniature(@PathVariable Long id) {
         repository.deleteById(id);

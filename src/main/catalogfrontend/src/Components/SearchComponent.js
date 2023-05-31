@@ -45,9 +45,7 @@ function SearchComponent() {
           <ul>
             {searchResults.map((result) => (
               <li key={result.id}>
-                <p>{result.name}</p>
-                <p>{result.scale}</p>
-                <p>{result.progress}</p>
+                <p>{result.page}</p>
               </li>
             ))}
           </ul>

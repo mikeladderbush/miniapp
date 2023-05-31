@@ -20,16 +20,18 @@ public class Miniature {
 
     @GeneratedValue
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="Name")
+    @Column(name = "Name")
     private String name;
 
-    @Column(name="Progress")
+    @Column(name = "Progress")
     private String progress;
 
-    @Column(name="Scale")
+    @Column(name = "Scale")
     private int scale;
 
+    @Column(name = "Page")
+    private String page;
 }

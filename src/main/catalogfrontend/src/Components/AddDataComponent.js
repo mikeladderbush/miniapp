@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function AddDataComponent() {
     const [data, setFormData] = useState({
         name: '',
+        page: '',
         scale: '',
         progress: '',
     });
-
-    const navigate = useNavigate();
 
     const handleInputChange = (event) => {
         setFormData({ ...data, [event.target.name]: event.target.value });
@@ -23,14 +21,12 @@ function AddDataComponent() {
             .then((response) => {
                 console.log(response.data);
                 const newMiniatureId = response.data.id;
-                const url = `/miniatures/${newMiniatureId}`;
-                navigate(url);
+                const url = `http://localhost:3000/miniatures/${newMiniatureId}`;
+                setFormData({ name: '', page: url, scale: '', progress: ''});
             })
             .catch((error) => {
                 console.error('Error adding data:', error);
             });
-
-        setFormData({ name: '', scale: '', progress: ''});
 
     };
 

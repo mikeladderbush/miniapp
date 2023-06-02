@@ -11,7 +11,7 @@ function MyComponent() {
     <Router>
       <Routes>
         <Route path="" element={<MainRoute />} />
-        <Route path="/miniatures/:id" component={MiniatureDetail} />
+        <Route path="/miniatures/:id" element={<MiniatureDetail />} />
       </Routes>
     </Router>
   );

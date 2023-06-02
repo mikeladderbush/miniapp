@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {  useSearchParams } from "react-router-dom"
 
-function MiniatureDetail({match}) {
-    const { id } = match.params;
+function MiniatureDetail() {
+    const [queryParameters] = useSearchParams()
+    const id = queryParameters.get("id")
     const [miniature, setMiniature] = useState(null);
 
     useEffect(() => {
@@ -10,11 +12,12 @@ function MiniatureDetail({match}) {
             .get(`http://localhost:8080/miniatures/${id}`)
             .then((response) => {
                 setMiniature(response.data);
+                console.log(response.data);
             })
             .catch((error) => {
                 console.error('Error fetching miniature:', error);
             });
-    }, [id]);
+    });
 
     return (
         <div>

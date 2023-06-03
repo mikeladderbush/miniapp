@@ -19,7 +19,7 @@ function AddDataComponent() {
             const response = await axios.get('http://localhost:8080/miniatures');
             const miniatures = response.data;
             miniatures.sort((a, b) => b.id - a.id);
-            const newMiniatureId = miniatures[0].id;
+            const newMiniatureId = miniatures[0].id + 1;
             const url = `http://localhost:3000/miniatures/${newMiniatureId}`;
             console.log(url);
             return url;

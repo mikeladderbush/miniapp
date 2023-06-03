@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function SearchComponent() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -45,7 +46,7 @@ function SearchComponent() {
           <ul>
             {searchResults.map((result) => (
               <li key={result.id}>
-                <p>{result.page}</p>
+                <Link to={`/miniatures/${result.id}`}>{result.page}</Link>
               </li>
             ))}
           </ul>

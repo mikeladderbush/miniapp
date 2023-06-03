@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function AddDataComponent() {
@@ -13,21 +13,41 @@ function AddDataComponent() {
         setFormData({ ...data, [event.target.name]: event.target.value });
     };
 
-    const handleSubmit = (event) => {
+    async function urlGeneration() {
+
+        try {
+            const response = await axios.get('http://localhost:8080/miniatures');
+            const miniatures = response.data;
+            miniatures.sort((a, b) => b.id - a.id);
+            const newMiniatureId = miniatures[0].id;
+            const url = `http://localhost:3000/miniatures/${newMiniatureId}`;
+            console.log(url);
+            return url;
+        } catch (error) {
+            console.error('Error fetching miniatures:', error);
+        }
+    }
+
+    useEffect(() => {
+        const setDefaultUrl = async () => {
+          const url = await urlGeneration();
+          setFormData((prevState) => ({ ...prevState, page: url }));
+        };
+    
+        setDefaultUrl();
+      }, []);
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        axios
-            .post('http://localhost:8080/miniatures', data)
-            .then((response) => {
-                console.log(response.data);
-                const newMiniatureId = response.data.id + 1;
-                const url = `http://localhost:3000/miniatures/${newMiniatureId}`;
-                setFormData({ name: '', page: url, scale: '', progress: '' });
-            })
-            .catch((error) => {
-                console.error('Error adding data:', error);
-            });
-
+        try {
+            const response = await axios.post('http://localhost:8080/miniatures', data);
+            console.log(response.data);
+            const url = await urlGeneration();
+            setFormData((prevState) => ({ ...prevState, page: url }));
+        } catch (error) {
+            console.error('Error adding data:', error);
+        }
     };
 
     return (

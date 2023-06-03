@@ -50,7 +50,7 @@ public class RepositoryService {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/miniatures/{id}")
-    Miniature replaceEmployee(@RequestBody Miniature newMiniature, @PathVariable Long id) {
+    Miniature replaceMiniature(@RequestBody Miniature newMiniature, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(miniature -> {

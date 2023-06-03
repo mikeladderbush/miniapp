@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {  useSearchParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 function MiniatureDetail() {
-    const [queryParameters] = useSearchParams()
-    const id = queryParameters.get("id")
+
+    const { id } = useParams();
     const [miniature, setMiniature] = useState(null);
 
     useEffect(() => {
@@ -17,16 +17,22 @@ function MiniatureDetail() {
             .catch((error) => {
                 console.error('Error fetching miniature:', error);
             });
-    });
+    }, [id]);
 
     return (
         <div>
             <h2>Miniature Detail</h2>
-            <p>ID: {miniature.id}</p>
-            <p>Name: {miniature.name}</p>
-            <p>Scale: {miniature.scale}</p>
-            <p>Progress: {miniature.progress}</p>
-            <p>Image: <img src={miniature.image} alt="Miniature" /></p>
+            {miniature ? (
+                <details>
+                    <p>ID: {miniature.id}</p>
+                    <p>Name: {miniature.name}</p>
+                    <p>Scale: {miniature.scale}</p>
+                    <p>Progress: {miniature.progress}</p>
+                    <p>Image: <img src={miniature.image} alt="Miniature" /></p>
+                </details>
+            ) : (
+                <p>Loading...</p>
+            )}
         </div>
     );
 }

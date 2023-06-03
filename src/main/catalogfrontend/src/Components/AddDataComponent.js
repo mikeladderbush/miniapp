@@ -20,9 +20,9 @@ function AddDataComponent() {
             .post('http://localhost:8080/miniatures', data)
             .then((response) => {
                 console.log(response.data);
-                const newMiniatureId = response.data.id;
+                const newMiniatureId = response.data.id + 1;
                 const url = `http://localhost:3000/miniatures/${newMiniatureId}`;
-                setFormData({ name: '', page: url, scale: '', progress: ''});
+                setFormData({ name: '', page: url, scale: '', progress: '' });
             })
             .catch((error) => {
                 console.error('Error adding data:', error);
@@ -53,7 +53,7 @@ function AddDataComponent() {
                 onChange={handleInputChange}
                 placeholder="Progress"
             />
-            <button type="submit">Add Data</button>
+            <button type="submit" >Add Data</button>
         </form>
     );
 }

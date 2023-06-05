@@ -1,12 +1,9 @@
 package com.ladderbush.miniapp.Services;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,22 +12,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.ladderbush.miniapp.Entities.Miniature;
 import com.ladderbush.miniapp.Repositories.MiniatureRepository;
 
 @RestController
 @Service
-public class RepositoryService {
+public class MiniatureRepositoryService {
 
     @Autowired
     private final MiniatureRepository repository;
 
-    RepositoryService(MiniatureRepository repository) {
+    MiniatureRepositoryService(MiniatureRepository repository) {
         this.repository = repository;
     }
 
@@ -42,16 +36,9 @@ public class RepositoryService {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/miniatures")
-    public ResponseEntity<?> newMiniature(@RequestPart("miniature") Miniature newMiniature,
-            @RequestParam("image") MultipartFile image) {
-        try {
-            newMiniature.setImage(image.getBytes());
-            Miniature savedMiniature = repository.save(newMiniature);
-            return ResponseEntity.ok(savedMiniature);
+    Miniature newMiniature(@RequestBody Miniature newMiniature) {
 
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image");
-        }
+        return repository.save(newMiniature);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -71,7 +58,6 @@ public class RepositoryService {
                     miniature.setScale(newMiniature.getScale());
                     miniature.setProgress(newMiniature.getProgress());
                     miniature.setPage(newMiniature.getPage());
-                    miniature.setImage(newMiniature.getImage());
 
                     return repository.save(miniature);
                 })

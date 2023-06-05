@@ -7,7 +7,6 @@ function AddDataComponent() {
         page: '',
         scale: '',
         progress: '',
-        image: '',
     });
 
     const handleInputChange = (event) => {
@@ -31,18 +30,22 @@ function AddDataComponent() {
 
     useEffect(() => {
         const setDefaultUrl = async () => {
-          const url = await urlGeneration();
-          setFormData((prevState) => ({ ...prevState, page: url }));
+            const url = await urlGeneration();
+            setFormData((prevState) => ({ ...prevState, page: url }));
         };
-    
+
         setDefaultUrl();
-      }, []);
+    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8080/miniatures', data);
+            const response = await axios.post('http://localhost:8080/miniatures', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             console.log(response.data);
             const url = await urlGeneration();
             setFormData((prevState) => ({ ...prevState, page: url }));
@@ -73,13 +76,6 @@ function AddDataComponent() {
                 value={data.progress || ''}
                 onChange={handleInputChange}
                 placeholder="Progress"
-            />
-            <input
-                type="file"
-                name="image"
-                value={data.image || ''}
-                onChange={handleInputChange}
-                placeholder="image"
             />
             <button type="submit" >Add Data</button>
         </form>

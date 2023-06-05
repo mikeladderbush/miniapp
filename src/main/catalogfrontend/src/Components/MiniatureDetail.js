@@ -74,6 +74,16 @@ function MiniatureDetail() {
               onChange={handleInputChange}
             />
           </p>
+          <p>
+            Image:
+            <input
+                type="file"
+                name="image"
+                value={updatedData.image || miniature.image}
+                onChange={handleInputChange}
+                placeholder="image"
+            />
+          </p>
           <button onClick={handleUpdate}>Update</button>
           <Link to={`/miniatures`}>
             <button>Go Back to Menu</button>

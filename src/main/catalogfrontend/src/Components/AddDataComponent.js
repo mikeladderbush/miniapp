@@ -7,6 +7,7 @@ function AddDataComponent() {
         page: '',
         scale: '',
         progress: '',
+        image: '',
     });
 
     const handleInputChange = (event) => {
@@ -72,6 +73,13 @@ function AddDataComponent() {
                 value={data.progress || ''}
                 onChange={handleInputChange}
                 placeholder="Progress"
+            />
+            <input
+                type="file"
+                name="image"
+                value={data.image || ''}
+                onChange={handleInputChange}
+                placeholder="image"
             />
             <button type="submit" >Add Data</button>
         </form>

@@ -46,9 +46,8 @@ function MiniatureDetail() {
       });
 
       console.log(response.data);
-
-      // Reset the image file after successful upload
       setImageFile(null);
+
     } catch (error) {
       console.error('Error adding image:', error);
     }

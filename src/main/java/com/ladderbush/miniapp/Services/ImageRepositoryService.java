@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ladderbush.miniapp.Entities.Image;
@@ -38,7 +38,7 @@ public class ImageRepositoryService {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/images")
-    Image newImage(@RequestBody Image newImage) {
+    Image newImage(@RequestParam Image newImage) {
 
         return repository.save(newImage);
     }
@@ -52,7 +52,7 @@ public class ImageRepositoryService {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/images/{id}")
-    Image replaceImage(@ModelAttribute Image newImage, @PathVariable Long id) {
+    Image replaceImage(@RequestParam Image newImage, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(Image -> {

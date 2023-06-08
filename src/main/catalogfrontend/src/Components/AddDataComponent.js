@@ -41,11 +41,7 @@ function AddDataComponent() {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8080/miniatures', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            const response = await axios.post('http://localhost:8080/miniatures', data);
             console.log(response.data);
             const url = await urlGeneration();
             setFormData((prevState) => ({ ...prevState, page: url }));

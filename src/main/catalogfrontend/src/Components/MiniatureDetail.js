@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
+import AddImageComponent from './AddImageComponent';
+import DisplayImageComponent from './DisplayImageComponent';
 
 function MiniatureDetail() {
 
   const { id } = useParams();
   const [miniature, setMiniature] = useState(null);
   const [updatedData, setUpdatedData] = useState({});
-  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
     axios
@@ -26,33 +27,6 @@ function MiniatureDetail() {
     const { name, value } = event.target;
     setUpdatedData({ ...updatedData, [name]: value });
   };
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setImageFile(file);
-  };
-
-  const handleImageSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const formData = new FormData();
-      formData.append('image', imageFile);
-
-      const response = await axios.post('http://localhost:8080/images', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      console.log(response.data);
-      setImageFile(null);
-
-    } catch (error) {
-      console.error('Error adding image:', error);
-    }
-  };
-
 
   const handleUpdate = () => {
     const updatedMiniature = { ...miniature, ...updatedData };
@@ -102,18 +76,14 @@ function MiniatureDetail() {
           onChange={handleInputChange}
         />
       </p>
+      <div>
+        <AddImageComponent miniature={miniature} />
+      </div>
       <button onClick={handleUpdate}>Update</button>
-      <form onSubmit={handleImageSubmit}>
-        <input
-          type="file"
-          name="image"
-          onChange={handleImageChange}
-        />
-        <button onClick={handleUpdate}>Add Image</button>
-      </form>
       <Link to={`/miniatures`}>
         <button>Go Back to Menu</button>
       </Link>
+      <DisplayImageComponent />
     </div>
   );
 }

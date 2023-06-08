@@ -1,74 +1,61 @@
 package com.ladderbush.miniapp.Services;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.ladderbush.miniapp.Entities.Image;
 import com.ladderbush.miniapp.Repositories.ImageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Service
 public class ImageRepositoryService {
 
-    @Autowired
     private final ImageRepository repository;
 
-    ImageRepositoryService(ImageRepository repository) {
+    @Autowired
+    public ImageRepositoryService(ImageRepository repository) {
         this.repository = repository;
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/images")
-    List<Image> all() {
+    public List<Image> getAllImages() {
         return repository.findAll();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/images")
-    Image newImage(@RequestParam Image newImage) {
-
-        return repository.save(newImage);
-    }
-
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/images/{id}")
-    Optional<Image> one(@PathVariable Long id) {
-
+    public Optional<Image> getImageById(@PathVariable Long id) {
         return repository.findById(id);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PutMapping("/images/{id}")
-    Image replaceImage(@RequestParam Image newImage, @PathVariable Long id) {
+    @PostMapping("/images")
+    public Image createImage(@RequestBody Image newImage) {
+        return repository.save(newImage);
+    }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/images/{id}")
+    public Image updateImage(@RequestBody Image updatedImage, @PathVariable Long id) {
         return repository.findById(id)
-                .map(Image -> {
-                    Image.setImage(newImage.getImage());
-                    return repository.save(Image);
+                .map(image -> {
+                    image.setImage(updatedImage.getImage());
+                    image.setMiniatureId(updatedImage.getMiniatureId());
+                    return repository.save(image);
                 })
                 .orElseGet(() -> {
-                    newImage.setId(id);
-                    return repository.save(newImage);
+                    updatedImage.setId(id);
+                    return repository.save(updatedImage);
                 });
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/images/{id}")
-    void deleteImage(@PathVariable Long id) {
+    public void deleteImage(@PathVariable Long id) {
         repository.deleteById(id);
     }
-
 }

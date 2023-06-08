@@ -15,9 +15,9 @@ import jakarta.persistence.GenerationType;
 @Entity(name = "Image")
 @Table(name = "images")
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Image {
 
     @Id
@@ -26,7 +26,14 @@ public class Image {
     private Long id;
 
     @Lob
-    @Column(name = "Image")
-    private byte[] image;
+    @Column(name = "image")
+    private String image;
+
+    @Column(name = "miniatureId")
+    private String miniatureId;
+
+    public Image(String image) {
+        this.image = image;
+    }
 
 }

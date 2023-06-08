@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -51,7 +52,7 @@ public class ImageRepositoryService {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/images/{id}")
-    Image replaceImage(@RequestBody Image newImage, @PathVariable Long id) {
+    Image replaceImage(@ModelAttribute Image newImage, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(Image -> {

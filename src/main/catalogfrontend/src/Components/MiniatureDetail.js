@@ -83,7 +83,7 @@ function MiniatureDetail() {
       <Link to={`/miniatures`}>
         <button>Go Back to Menu</button>
       </Link>
-      <DisplayImageComponent />
+      <DisplayImageComponent miniature={miniature} />
     </div>
   );
 }

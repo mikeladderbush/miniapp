@@ -26,6 +26,7 @@ function SearchComponent() {
     const results = jsonData.filter((item) =>
       item.page.includes(searchQuery)
     );
+    console.log(results);
     setSearchResults(results);
   };
 

@@ -16,6 +16,4 @@ public class MiniappApplication {
 
 }
 
-//Make it so each entry into the database gets its own link that can then be open and have pictures added to it.
-//add component to this page that allows image uploading.
 //display the image on the page.

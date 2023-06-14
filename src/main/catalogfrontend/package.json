@@ -8,8 +8,10 @@
     "file-saver": "^2.0.5",
     "filesaver": "^0.0.13",
     "glob-parent": "^6.0.2",
+    "node-base64-img": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-native-base64": "^0.2.1",
     "react-router-dom": "^6.11.2",
     "react-scripts": "^5.0.1",
     "web-vitals": "^3.3.1"

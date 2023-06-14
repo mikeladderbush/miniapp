@@ -2,38 +2,39 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function DisplayImageComponent() {
-  const [imageData, setImageData] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
-    fetchImageData();
+    createImage();
   }, []);
 
-  const fetchImageData = async () => {
-    try {
-      const response = await axios.get('http://localhost:8080/images'); // Replace with your API endpoint
-      const { image } = response.data;
-
-      setImageData(image);
-    } catch (error) {
-      console.error('Error fetching image data:', error);
-    }
-  };
-
-  const decodeBase64 = (base64String) => {
-    const decodedData = window.atob(base64String);
-    return decodedData;
-  };
+  const createImage = async () => {
+    axios.get(`http://localhost:8080/images/20`)
+      .then(response => {
+        const imageUrl = `data:image/jpeg;charset=utf-8;base64,${response.data.image}`;
+        setImageUrl(imageUrl);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   return (
     <div>
-      {imageData && (
+      <h2>Images:</h2>
+      {imageUrl ? (
         <img
-          src={`data:image/jpeg;base64,${decodeBase64(imageData)}`}
-          alt="Image"
+          src={imageUrl}
+          alt="not loading..."
+          style={{ width: '100%', height: 'auto' }}
         />
+      ) : (
+        <p>Loading image...</p>
       )}
     </div>
   );
 }
+
+
 
 export default DisplayImageComponent;

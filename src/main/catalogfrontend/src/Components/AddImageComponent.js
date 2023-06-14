@@ -14,7 +14,6 @@ function AddImageComponent({ miniature }) {
 
         reader.onload = () => {
             const base64String = reader.result.split(',')[1];
-            console.log(base64String);
             setFormData((prevFormData) => ({
                 ...prevFormData,
                 image: base64String,

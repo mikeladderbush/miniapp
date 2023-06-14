@@ -21,12 +21,12 @@ function SearchComponent() {
     setSearchQuery(event.target.value);
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = event => {
     event.preventDefault();
-    const results = jsonData.filter((item) =>
-      item.page.includes(searchQuery)
-    );
-    console.log(results);
+    const results = jsonData.filter(item => {
+      return item.page && item.page.includes(searchQuery);
+    });
+
     setSearchResults(results);
   };
 

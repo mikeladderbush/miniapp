@@ -16,4 +16,8 @@ public class MiniappApplication {
 
 }
 
-//display the image on the page.
+/* Current issues to take care of:
+ * 1. set automatic default id on first miniature added.
+ * 2. connect image entries with specific miniature entries.
+ * 3. display multiple images if they share a miniature id.
+ */

@@ -5,7 +5,7 @@ import AddDataComponent from './Components/AddDataComponent';
 import PrintToFile from './Components/PrintToFile';
 import MiniatureDetail from './Components/MiniatureDetail';
 
-function MyComponent() {
+function App() {
 
   return (
     <Router>
@@ -19,6 +19,7 @@ function MyComponent() {
 }
 
 function MainRoute() {
+
   return (
     <>
       <h1>My Miniature Catalog</h1>
@@ -30,5 +31,5 @@ function MainRoute() {
   );
 }
 
-export default MyComponent;
+export default App;
 

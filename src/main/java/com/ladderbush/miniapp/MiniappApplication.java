@@ -17,6 +17,5 @@ public class MiniappApplication {
 }
 
 /* Current issues to take care of:
- * 2. connect image entries with specific miniature entries.
- * 3. display multiple images if they share a miniature id.
- */
+1. fix CORS policy so that http://localhost:8080/images/6403 error is fixed
+*/

@@ -40,15 +40,15 @@ public class ImageRepositoryService {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/images/{id}")
-    public Image updateImage(@RequestBody Image updatedImage, @PathVariable Long id) {
-        return repository.findById(id)
+    public Image updateImage(@RequestBody Image updatedImage, @PathVariable Long miniature_id) {
+        return repository.findById(miniature_id)
                 .map(image -> {
                     image.setImage(updatedImage.getImage());
                     image.setMiniatureId(updatedImage.getMiniatureId());
                     return repository.save(image);
                 })
                 .orElseGet(() -> {
-                    updatedImage.setId(id);
+                    updatedImage.setMiniatureId(miniature_id);
                     return repository.save(updatedImage);
                 });
     }

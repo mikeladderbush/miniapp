@@ -33,7 +33,7 @@ public class Initializer implements CommandLineRunner {
         if (imageRepository.count() == 0) {
             Image defaultImage = new Image();
             defaultImage.setImage("default");
-            defaultImage.setMiniatureId("0");
+            defaultImage.setMiniatureId(0L);
             imageRepository.save(defaultImage);
         }
     }

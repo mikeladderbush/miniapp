@@ -41,14 +41,14 @@ public class MiniatureRepositoryService {
         return miniatureRepository.save(newMiniature);
     }
 
-    @GetMapping("/miniatures/{id}")
-    public Optional<Miniature> getMiniatureById(@PathVariable Long id) {
-        return miniatureRepository.findById(id);
+    @GetMapping("/miniatures/{Id}")
+    public Optional<Miniature> getMiniatureById(@PathVariable Long Id) {
+        return miniatureRepository.findById(Id);
     }
 
-    @PutMapping("/miniatures/{id}")
-    public Miniature updateMiniature(@RequestBody Miniature newMiniature, @PathVariable Long id) {
-        return miniatureRepository.findById(id)
+    @PutMapping("/miniatures/{Id}")
+    public Miniature updateMiniature(@RequestBody Miniature newMiniature, @PathVariable Long Id) {
+        return miniatureRepository.findById(Id)
                 .map(miniature -> {
                     miniature.setName(newMiniature.getName());
                     miniature.setScale(newMiniature.getScale());
@@ -58,19 +58,37 @@ public class MiniatureRepositoryService {
                     return miniatureRepository.save(miniature);
                 })
                 .orElseGet(() -> {
-                    newMiniature.setId(id);
+                    newMiniature.setId(Id);
                     return miniatureRepository.save(newMiniature);
                 });
     }
 
-    @DeleteMapping("/miniatures/{id}")
-    public void deleteMiniature(@PathVariable Long id) {
-        miniatureRepository.deleteById(id);
+    @DeleteMapping("/miniatures/{Id}")
+    public void deleteMiniature(@PathVariable Long Id) {
+        miniatureRepository.deleteById(Id);
     }
 
-    @PostMapping("/miniatures/{miniatureId}/images")
-    public Image addImageToMiniature(@PathVariable Long miniatureId, @RequestBody Image newImage) {
-        Miniature miniature = miniatureRepository.findById(miniatureId)
+    @GetMapping("/miniatures/{id}/images")
+    public List<Image> getAllImagesForMiniature(@PathVariable Long id) {
+        Miniature miniature = miniatureRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Miniature not found"));
+
+        return miniature.getImages();
+    }
+
+    @GetMapping("/miniatures/{Id}/images/{imageId}")
+    public Optional<Image> getImageById(@PathVariable Long Id, @PathVariable Long imageId) {
+        Miniature miniature = miniatureRepository.findById(Id)
+                .orElseThrow(() -> new RuntimeException("Miniature not found"));
+
+        return miniature.getImages().stream()
+                .filter(image -> image.getImageId().equals(imageId))
+                .findFirst();
+    }
+
+    @PostMapping("/miniatures/{id}/images")
+    public Image addImageToMiniature(@PathVariable Long id, @RequestBody Image newImage) {
+        Miniature miniature = miniatureRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Miniature not found"));
 
         newImage.setMiniature(miniature);

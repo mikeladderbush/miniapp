@@ -21,7 +21,7 @@ function AddImageComponent({ miniature }) {
         event.preventDefault();
 
         try {
-            const response = await axios.post(`http://localhost:8080/miniatures/${miniature.id}/images`, imageData, {
+            await axios.post(`http://localhost:8080/miniatures/${miniature.id}/images`, imageData, {
                 headers: { 'Content-Type': 'application/json' },
             });
             setImageData(null);

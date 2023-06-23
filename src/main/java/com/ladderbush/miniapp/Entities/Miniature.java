@@ -1,8 +1,12 @@
 package com.ladderbush.miniapp.Entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,5 +38,8 @@ public class Miniature {
 
     @Column(name = "Page")
     private String page;
+
+    @OneToMany(mappedBy = "miniature", cascade = CascadeType.ALL)
+    private List<Image> images;
 
 }

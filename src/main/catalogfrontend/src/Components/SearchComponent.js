@@ -24,7 +24,7 @@ function SearchComponent() {
   const handleFormSubmit = event => {
     event.preventDefault();
     const results = jsonData.filter(item => {
-      if (item.page.includes("default")) {
+      if (item.page.includes("http://localhost:3000/miniatures/1")) {
         return false;
       }
       return item.page && item.page.includes(searchQuery);

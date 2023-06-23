@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,62 +14,66 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ladderbush.miniapp.Entities.Miniature;
+import com.ladderbush.miniapp.Entities.Image;
 import com.ladderbush.miniapp.Repositories.MiniatureRepository;
+import com.ladderbush.miniapp.Repositories.ImageRepository;
 
 @RestController
 @Service
 public class MiniatureRepositoryService {
 
+    private final MiniatureRepository miniatureRepository;
+    private final ImageRepository imageRepository;
+
     @Autowired
-    private final MiniatureRepository repository;
-
-    MiniatureRepositoryService(MiniatureRepository repository) {
-        this.repository = repository;
+    public MiniatureRepositoryService(MiniatureRepository miniatureRepository, ImageRepository imageRepository) {
+        this.miniatureRepository = miniatureRepository;
+        this.imageRepository = imageRepository;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/miniatures")
-    List<Miniature> all() {
-        return repository.findAll();
+    public List<Miniature> getAllMiniatures() {
+        return miniatureRepository.findAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/miniatures")
-    Miniature newMiniature(@RequestBody Miniature newMiniature) {
-
-        return repository.save(newMiniature);
+    public Miniature createMiniature(@RequestBody Miniature newMiniature) {
+        return miniatureRepository.save(newMiniature);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/miniatures/{id}")
-    Optional<Miniature> one(@PathVariable Long id) {
-
-        return repository.findById(id);
+    public Optional<Miniature> getMiniatureById(@PathVariable Long id) {
+        return miniatureRepository.findById(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/miniatures/{id}")
-    Miniature replaceMiniature(@RequestBody Miniature newMiniature, @PathVariable Long id) {
-
-        return repository.findById(id)
+    public Miniature updateMiniature(@RequestBody Miniature newMiniature, @PathVariable Long id) {
+        return miniatureRepository.findById(id)
                 .map(miniature -> {
                     miniature.setName(newMiniature.getName());
                     miniature.setScale(newMiniature.getScale());
                     miniature.setProgress(newMiniature.getProgress());
                     miniature.setPage(newMiniature.getPage());
 
-                    return repository.save(miniature);
+                    return miniatureRepository.save(miniature);
                 })
                 .orElseGet(() -> {
                     newMiniature.setId(id);
-                    return repository.save(newMiniature);
+                    return miniatureRepository.save(newMiniature);
                 });
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/miniatures/{id}")
-    void deleteMiniature(@PathVariable Long id) {
-        repository.deleteById(id);
+    public void deleteMiniature(@PathVariable Long id) {
+        miniatureRepository.deleteById(id);
     }
 
+    @PostMapping("/miniatures/{miniatureId}/images")
+    public Image addImageToMiniature(@PathVariable Long miniatureId, @RequestBody Image newImage) {
+        Miniature miniature = miniatureRepository.findById(miniatureId)
+                .orElseThrow(() -> new RuntimeException("Miniature not found"));
+
+        newImage.setMiniature(miniature);
+        return imageRepository.save(newImage);
+    }
 }

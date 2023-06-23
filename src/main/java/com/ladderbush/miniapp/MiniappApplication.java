@@ -17,5 +17,6 @@ public class MiniappApplication {
 }
 
 /* Current issues to take care of:
-1. fix CORS policy so that http://localhost:8080/images/6403 error is fixed
+1. update code for new linked tables and fill image arrays
+2. add login page.
 */

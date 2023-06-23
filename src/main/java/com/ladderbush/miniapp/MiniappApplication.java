@@ -17,6 +17,6 @@ public class MiniappApplication {
 }
 
 /* Current issues to take care of:
-1. update code for new linked tables and fill image arrays
-2. add login page.
+1. fix chunking error
+2. add login page
 */

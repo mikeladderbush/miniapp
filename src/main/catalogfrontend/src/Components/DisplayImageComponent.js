@@ -9,8 +9,10 @@ function DisplayImageComponent({ miniature }) {
   }, [miniature]);
 
   const createImage = async () => {
-    axios.get(`http://localhost:8080/images`)
+    axios.get(`http://localhost:8080/miniatures/${miniature.id}`)
       .then(response => {
+        console.log(response.data.images);
+        setImages(response.data.images);
       })
       .catch(error => {
         console.log(error);
@@ -20,7 +22,7 @@ function DisplayImageComponent({ miniature }) {
   const convertImage = (image) => {
     const convertedImage = {
       ...image,
-      image: `data:image/jpeg;charset=utf-8;base64,${image.image}`,
+      image: `data:image/jpeg;charset=utf-8;base64,${miniature.image}`,
     };
     return convertImage;
   }

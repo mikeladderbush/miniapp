@@ -74,6 +74,7 @@ public class MiniatureRepositoryService {
                 .orElseThrow(() -> new RuntimeException("Miniature not found"));
 
         newImage.setMiniature(miniature);
+        miniature.getImages().add(newImage);
         return imageRepository.save(newImage);
     }
 }

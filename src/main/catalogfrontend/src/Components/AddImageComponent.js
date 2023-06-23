@@ -3,11 +3,7 @@ import axios from 'axios';
 
 function AddImageComponent({ miniature }) {
 
-    const [formData, setFormData] = useState({
-        id: '',
-        image: '',
-        miniature_id: miniature.id,
-    });
+    const [imageData, setImageData] = useState(null);
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
@@ -15,12 +11,7 @@ function AddImageComponent({ miniature }) {
 
         reader.onload = () => {
             const base64String = reader.result.split(',')[1];
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                id: miniature.id,
-                image: base64String,
-                miniature_id: miniature.id,
-            }));
+            setImageData(base64String);
         };
 
         reader.readAsDataURL(file);
@@ -30,11 +21,10 @@ function AddImageComponent({ miniature }) {
         event.preventDefault();
 
         try {
-            console.log(formData);
-            const response = await axios.post('http://localhost:8080/images', formData, {
+            const response = await axios.post(`http://localhost:8080/miniatures/${miniature.id}/images`, imageData, {
                 headers: { 'Content-Type': 'application/json' },
             });
-            console.log(response);
+            setImageData(null);
         } catch (error) {
             console.error('Error adding data:', error);
         }
@@ -43,7 +33,7 @@ function AddImageComponent({ miniature }) {
     return (
         <form onSubmit={handleSubmit}>
             <input type="file" accept="image/*" onChange={handleImageUpload} />
-            <button type="submit">Upload Image</button>
+            <button type="submit" disabled={!imageData}>Upload Image</button>
         </form>
     );
 }

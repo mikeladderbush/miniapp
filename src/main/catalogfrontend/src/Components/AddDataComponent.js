@@ -9,7 +9,6 @@ function AddDataComponent() {
         progress: '',
     });
 
-
     const handleInputChange = (event) => {
         setFormData({ ...data, [event.target.name]: event.target.value });
     };

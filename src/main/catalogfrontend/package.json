@@ -1,5 +1,4 @@
 {
-  "proxy": "http://localhost:8080/miniatures",
   "name": "catalogfrontend",
   "version": "0.1.0",
   "private": true,

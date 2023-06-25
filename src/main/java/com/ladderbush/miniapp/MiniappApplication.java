@@ -17,6 +17,10 @@ public class MiniappApplication {
 }
 
 /* Current issues to take care of:
-1. fix chunking error
-2. add login page
+add login page
+add tags like race/faction/colors/weapon/sfw/% of each color
+make tags searchable
+add miniature preview
+add NN to log colors
+...
 */

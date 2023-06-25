@@ -5,35 +5,26 @@ function DisplayImageComponent({ miniature }) {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    createImage();
+    createImages();
   }, [miniature]);
 
-  const createImage = async () => {
-    axios.get(`http://localhost:8080/miniatures/${miniature.id}`)
-      .then(response => {
-        console.log(response.data.images);
-        setImages(response.data.images);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  const createImages = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/miniatures/${miniature.id}/images`);
+      setImages(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  const convertImage = (image) => {
-    const convertedImage = {
-      ...image,
-      image: `data:image/jpeg;charset=utf-8;base64,${miniature.image}`,
-    };
-    return convertImage;
-  }
 
   return (
     <div>
       <h2>Images:</h2>
+      {images.map((image) => (
+        <img key={image.imageId} src={`data:image/*;base64,${image.url}`} alt="Miniature" />
+      ))}
     </div>
   );
 }
-
-
 
 export default DisplayImageComponent;

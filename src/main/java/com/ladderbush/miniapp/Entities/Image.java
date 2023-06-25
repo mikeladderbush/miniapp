@@ -57,4 +57,7 @@ public class Image {
     public Image(String url) {
         this.url = url;
     }
+
+    public Image() {
+    }
 }

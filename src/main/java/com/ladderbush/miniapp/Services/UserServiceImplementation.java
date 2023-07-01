@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.ladderbush.miniapp.Entities.Image;
 import com.ladderbush.miniapp.Entities.Miniature;
+import com.ladderbush.miniapp.Repositories.ImageRepository;
+import com.ladderbush.miniapp.Repositories.MiniatureRepository;
 import com.ladderbush.miniapp.Repositories.RoleRepository;
 import com.ladderbush.miniapp.Repositories.UserRepository;
 import com.ladderbush.miniapp.Security.Role;
@@ -20,6 +22,8 @@ public class UserServiceImplementation implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final MiniatureRepository miniatureRepository;
+    private final ImageRepository imageRepository;
 
     @Override
     public User saveUser(User user) {
@@ -32,10 +36,34 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
+    public Miniature saveMiniature(Miniature miniature) {
+        return miniatureRepository.save(miniature);
+    }
+
+    @Override
+    public Image saveImage(Image image) {
+        return imageRepository.save(image);
+    }
+
+    @Override
     public void addRoleToUser(String username, String roleName) {
         User user = userRepository.findByUsername(username);
-        Role role = roleRepository.findByName(roleName);
+        Role role = roleRepository.findByRoleName(roleName);
         user.getRoles().add(role);
+    }
+
+    @Override
+    public void addMiniatureToUser(String username, String miniatureName) {
+        User user = userRepository.findByUsername(username);
+        Miniature miniature = miniatureRepository.findByMiniatureName(miniatureName);
+        user.getMiniatures().add(miniature);
+    }
+
+    @Override
+    public void addImageToMiniature(String miniatureName, String url) {
+        Miniature miniature = miniatureRepository.findByMiniatureName(miniatureName);
+        Image image = imageRepository.findByImageUrl(url);
+        miniature.getImages().add(image);
     }
 
     @Override
@@ -49,51 +77,23 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public Miniature saveMiniature(Miniature miniature) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveMiniature'");
-    }
-
-    @Override
-    public Image saveImage(Image image) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveImage'");
-    }
-
-    @Override
-    public void addImageToMiniature(String miniatureName, String url) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addImageToMiniature'");
-    }
-
-    @Override
-    public void addMiniatureToUser(String username, String miniatureName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addMiniatureToUser'");
-    }
-
-    @Override
     public Miniature getMiniature(String miniatureName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMiniature'");
+        return miniatureRepository.findByMiniatureName(miniatureName);
     }
 
     @Override
     public List<Miniature> getMiniatures() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMiniatures'");
+        return miniatureRepository.findAll();
     }
 
     @Override
     public Image getImage(String url) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getImage'");
+        return imageRepository.findByImageUrl(url);
     }
 
     @Override
     public List<Image> getImages() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getImages'");
+        return imageRepository.findAll();
     }
 
 }

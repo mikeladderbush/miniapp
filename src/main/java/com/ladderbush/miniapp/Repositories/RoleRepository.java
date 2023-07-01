@@ -9,5 +9,5 @@ import com.ladderbush.miniapp.Security.Role;
 @ComponentScan
 @Repository
 public interface RoleRepository extends JpaRepository<Role,Long>{
-    Role findByName(String Name);
+    Role findByRoleName(String roleName);
 }

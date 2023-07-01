@@ -1,3 +1,4 @@
+/* 
 package com.ladderbush.miniapp.Services;
 
 import org.springframework.boot.CommandLineRunner;
@@ -20,7 +21,7 @@ public class Initializer implements CommandLineRunner {
         if (miniatureRepository.count() == 0) {
             Miniature defaultMiniature = new Miniature();
             defaultMiniature.setMiniatureName("default");
-            defaultMiniature.setPage("http://localhost:3000/miniatures/1");
+            defaultMiniature.setPage("http://localhost:3000/user/miniatures/1");
             defaultMiniature.setProgress("default");
             defaultMiniature.setScale(0);
             miniatureRepository.save(defaultMiniature);
@@ -28,3 +29,5 @@ public class Initializer implements CommandLineRunner {
 
     }
 }
+
+*/

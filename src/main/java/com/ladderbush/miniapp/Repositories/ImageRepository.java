@@ -9,5 +9,5 @@ import com.ladderbush.miniapp.Entities.Image;
 @ComponentScan
 @Repository
 public interface ImageRepository extends JpaRepository<Image, Long> {
-    Image findByImageUrl(String url);
+    Image findByImageUrl(String imageUrl);
 }

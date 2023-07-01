@@ -60,9 +60,9 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public void addImageToMiniature(String miniatureName, String url) {
+    public void addImageToMiniature(String miniatureName, String imageUrl) {
         Miniature miniature = miniatureRepository.findByMiniatureName(miniatureName);
-        Image image = imageRepository.findByImageUrl(url);
+        Image image = imageRepository.findByImageUrl(imageUrl);
         miniature.getImages().add(image);
     }
 
@@ -87,8 +87,8 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public Image getImage(String url) {
-        return imageRepository.findByImageUrl(url);
+    public Image getImage(String imageUrl) {
+        return imageRepository.findByImageUrl(imageUrl);
     }
 
     @Override

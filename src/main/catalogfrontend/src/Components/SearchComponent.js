@@ -8,7 +8,7 @@ function SearchComponent() {
   const [jsonData, setJsonData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/miniatures')
+    axios.get('http://localhost:8080/api/user/miniatures')
       .then(response => {
         setJsonData(response.data);
       })
@@ -24,7 +24,7 @@ function SearchComponent() {
   const handleFormSubmit = event => {
     event.preventDefault();
     const results = jsonData.filter(item => {
-      if (item.page.includes("http://localhost:3000/miniatures/1")) {
+      if (item.page.includes("http://localhost:3000/api/user/miniatures/1")) {
         return false;
       }
       return item.page && item.page.includes(searchQuery);
@@ -50,7 +50,7 @@ function SearchComponent() {
           <ul>
             {searchResults.map((result) => (
               <li key={result.id}>
-                <Link to={`/miniatures/${result.id}`}>{result.page}</Link>
+                <Link to={`/miniatures/${result.miniature_id}`}>{result.page}</Link>
               </li>
             ))}
           </ul>

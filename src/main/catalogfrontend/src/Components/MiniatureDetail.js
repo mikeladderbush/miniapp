@@ -13,7 +13,7 @@ function MiniatureDetail() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/miniatures/${id}`)
+      .get(`http://localhost:8080/api/user/miniatures/${id}`)
       .then((response) => {
         setMiniature(response.data);
         console.log(response.data);
@@ -31,7 +31,7 @@ function MiniatureDetail() {
   const handleUpdate = () => {
     const updatedMiniature = { ...miniature, ...updatedData };
 
-    axios.put(`http://localhost:8080/miniatures/${id}`, updatedMiniature)
+    axios.put(`http://localhost:8080/api/user/miniatures/${id}`, updatedMiniature)
       .then((response) => {
         console.log("Miniature updated:", response.data);
         setMiniature(response.data);
@@ -54,7 +54,7 @@ function MiniatureDetail() {
         <input
           type="text"
           name="name"
-          value={updatedData.name || miniature.name}
+          value={updatedData.miniature_name || miniature.miniature_name}
           onChange={handleInputChange}
         />
       </p>

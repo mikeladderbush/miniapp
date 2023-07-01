@@ -19,7 +19,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(path = "/userapi")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class UserRepositoryService {
 
@@ -54,13 +54,15 @@ public class UserRepositoryService {
 
     @PostMapping("/user/miniature/save")
     public ResponseEntity<Miniature> saveMiniature(@RequestBody Miniature miniature) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/miniature/save").toUriString());
+        URI uri = URI.create(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/miniature/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveMiniature(miniature));
     }
 
     @PostMapping("/user/miniature/image/save")
     public ResponseEntity<Image> saveImage(@RequestBody Image image) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/miniature/image/save").toUriString());
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/miniature/image/save")
+                .toUriString());
         return ResponseEntity.created(uri).body(userService.saveImage(image));
     }
 

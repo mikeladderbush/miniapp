@@ -18,7 +18,19 @@ public interface UserService {
 
     void addRoleToUser(String username, String roleName);
 
+    void addImageToMiniature(String miniatureName, String url);
+
+    void addMiniatureToUser(String username, String miniatureName);
+
     User getUser(String username);
 
     List<User> getUsers();
+
+    Miniature getMiniature(String miniatureName);
+
+    List<Miniature> getMiniatures();
+
+    Image getImage(String url);
+
+    List<Image> getImages();
 }

@@ -2,15 +2,9 @@ package com.ladderbush.miniapp.Services;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ladderbush.miniapp.Entities.Image;
 import com.ladderbush.miniapp.Entities.Miniature;
-import com.ladderbush.miniapp.Repositories.ImageRepository;
-import com.ladderbush.miniapp.Repositories.MiniatureRepository;
 import com.ladderbush.miniapp.Security.Role;
 import com.ladderbush.miniapp.Security.User;
 
@@ -56,74 +48,53 @@ public class UserRepositoryService {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/miniatures")
-    public List<Miniature> getAllMiniatures() {
-        return miniatureRepository.findAll();
+    @PostMapping("/miniature/addminiaturetouser")
+    public ResponseEntity<?> addMiniatureToUser(@RequestBody MiniatureToUserForm form) {
+        userService.addMiniatureToUser(form.getUsername(), form.getMiniatureName());
+        return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/miniatures")
-    public Miniature createMiniature(@RequestBody Miniature newMiniature) {
-        return miniatureRepository.save(newMiniature);
+    @PostMapping("/miniature/addimagetominiature")
+    public ResponseEntity<?> addImageToMiniature(@RequestBody ImageToMiniatureForm form) {
+        userService.addImageToMiniature(form.getMiniatureName(), form.getUrl());
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/miniatures/{miniatureId}")
-    public Optional<Miniature> getMiniatureById(@PathVariable Long miniatureId) {
-        return miniatureRepository.findById(miniatureId);
+    @GetMapping("/user/miniatures")
+    public ResponseEntity<List<Miniature>> getAllMiniatures() {
+        return ResponseEntity.ok().body(userService.getMiniatures());
     }
 
-    @PutMapping("/miniatures/{miniatureId}")
-    public Miniature updateMiniature(@RequestBody Miniature newMiniature, @PathVariable Long miniatureId) {
-        return miniatureRepository.findById(miniatureId)
-                .map(miniature -> {
-                    miniature.setName(newMiniature.getName());
-                    miniature.setScale(newMiniature.getScale());
-                    miniature.setProgress(newMiniature.getProgress());
-                    miniature.setPage(newMiniature.getPage());
-
-                    return miniatureRepository.save(miniature);
-                })
-                .orElseGet(() -> {
-                    newMiniature.setMiniatureId(miniatureId);
-                    return miniatureRepository.save(newMiniature);
-                });
+    @PostMapping("/user/miniatures")
+    public ResponseEntity<Miniature> createMiniature(@RequestBody Miniature miniature) {
+        URI uri = URI.create(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/miniature/save").toUriString());
+        return ResponseEntity.created(uri).body(userService.saveMiniature(miniature));
     }
 
-    @DeleteMapping("/miniatures/{miniatureId}")
-    public void deleteMiniature(@PathVariable Long miniatureId) {
-        miniatureRepository.deleteById(miniatureId);
+    @PostMapping("/user/miniature/images")
+    public ResponseEntity<Image> createImage(@RequestBody Image image) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/miniature/image/save")
+                .toUriString());
+        return ResponseEntity.created(uri).body(userService.saveImage(image));
     }
 
-    @GetMapping("/miniatures/{miniatureId}/images")
-    public List<Image> getAllImagesForMiniature(@PathVariable Long miniatureId) {
-        Miniature miniature = miniatureRepository.findById(miniatureId)
-                .orElseThrow(() -> new RuntimeException("Miniature not found"));
-
-        return miniature.getImages();
-    }
-
-    @GetMapping("/miniatures/{miniatureId}/images/{imageId}")
-    public Optional<Image> getImageById(@PathVariable Long miniatureId, @PathVariable Long imageId) {
-        Miniature miniature = miniatureRepository.findById(miniatureId)
-                .orElseThrow(() -> new RuntimeException("Miniature not found"));
-
-        return miniature.getImages().stream()
-                .filter(image -> image.getImageId().equals(imageId))
-                .findFirst();
-    }
-
-    @PostMapping("/miniatures/{miniatureId}/images")
-    public Image addImageToMiniature(@PathVariable Long miniatureId, @RequestBody Image newImage) {
-        Miniature miniature = miniatureRepository.findById(miniatureId)
-                .orElseThrow(() -> new RuntimeException("Miniature not found"));
-
-        newImage.setMiniature(miniature);
-        miniature.getImages().add(newImage);
-        return imageRepository.save(newImage);
-    }
 }
 
 @Data
 class RoleToUserForm {
     private String username;
     private String roleName;
+}
+
+@Data
+class MiniatureToUserForm {
+    private String username;
+    private String miniatureName;
+}
+
+@Data
+class ImageToMiniatureForm {
+    private String miniatureName;
+    private String url;
 }

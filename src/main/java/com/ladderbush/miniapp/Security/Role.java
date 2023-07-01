@@ -17,6 +17,6 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long roleId;
-    private String name;
+    private String roleName;
 
 }

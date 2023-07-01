@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ladderbush.miniapp.Security.User;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +29,7 @@ public class Miniature {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long miniatureId;
-    private String name;
+    private String miniatureName;
     private String progress;
     private int scale;
     private String page;

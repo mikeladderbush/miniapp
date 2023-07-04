@@ -12,8 +12,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ladderbush.miniapp.Entities.Image;
 import com.ladderbush.miniapp.Entities.Miniature;
-import com.ladderbush.miniapp.Security.Role;
-import com.ladderbush.miniapp.Security.User;
+import com.ladderbush.miniapp.Entities.Role;
+import com.ladderbush.miniapp.Entities.UserProfile;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class UserRepositoryService {
     private final UserService userService;
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getUsers() {
+    public ResponseEntity<List<com.ladderbush.miniapp.Entities.UserProfile>> getUsers() {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
@@ -41,9 +41,9 @@ public class UserRepositoryService {
     }
 
     @PostMapping("/user/save")
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
+    public ResponseEntity<Object> saveUserProfile (@RequestBody UserProfile userProfile) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
+        return ResponseEntity.created(uri).body(userService.saveUserProfile(userProfile));
     }
 
     @PostMapping("/role/save")

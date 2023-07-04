@@ -4,10 +4,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ladderbush.miniapp.Security.User;
+import com.ladderbush.miniapp.Entities.UserProfile;
+
 
 @ComponentScan
 @Repository
-public interface UserRepository extends JpaRepository<User,Long> {
-    User findByUsername(String username);
+public interface UserRepository extends JpaRepository<UserProfile,Long> {
+    UserProfile findByUsername(String username);
 }

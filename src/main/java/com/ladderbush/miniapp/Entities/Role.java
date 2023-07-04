@@ -1,4 +1,4 @@
-package com.ladderbush.miniapp.Security;
+package com.ladderbush.miniapp.Entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

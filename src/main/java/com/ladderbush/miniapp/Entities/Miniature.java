@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.ladderbush.miniapp.Security.User;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -41,6 +39,6 @@ public class Miniature {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "username")
     @JsonBackReference
-    private User user;
+    private UserProfile user;
 
 }

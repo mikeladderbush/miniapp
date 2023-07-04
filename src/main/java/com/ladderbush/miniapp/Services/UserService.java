@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.ladderbush.miniapp.Entities.Image;
 import com.ladderbush.miniapp.Entities.Miniature;
-import com.ladderbush.miniapp.Security.Role;
-import com.ladderbush.miniapp.Security.User;
+import com.ladderbush.miniapp.Entities.Role;
+import com.ladderbush.miniapp.Entities.UserProfile;
 
 public interface UserService {
-    User saveUser(User user);
+    UserProfile saveUserProfile(UserProfile userProfile);
 
     Role saveRole(Role role);
 
@@ -22,9 +22,9 @@ public interface UserService {
 
     void addMiniatureToUser(String username, String miniatureName);
 
-    User getUser(String username);
+    UserProfile getUser(String username);
 
-    List<User> getUsers();
+    List<UserProfile> getUsers();
 
     Miniature getMiniature(String miniatureName);
 
@@ -33,4 +33,5 @@ public interface UserService {
     Image getImage(String imageUrl);
 
     List<Image> getImages();
+
 }

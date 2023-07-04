@@ -2,17 +2,17 @@ package com.ladderbush.miniapp.Services;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import com.ladderbush.miniapp.Entities.Image;
 import com.ladderbush.miniapp.Entities.Miniature;
+import com.ladderbush.miniapp.Entities.Role;
+import com.ladderbush.miniapp.Entities.UserProfile;
 import com.ladderbush.miniapp.Repositories.ImageRepository;
 import com.ladderbush.miniapp.Repositories.MiniatureRepository;
 import com.ladderbush.miniapp.Repositories.RoleRepository;
 import com.ladderbush.miniapp.Repositories.UserRepository;
-import com.ladderbush.miniapp.Security.Role;
-import com.ladderbush.miniapp.Security.User;
-
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +29,9 @@ public class UserServiceImplementation implements UserService {
     private final ImageRepository imageRepository;
 
     @Override
-    public User saveUser(User user) {
-        log.info("Saving new user {} to the database", user.getName());
-        return userRepository.save(user);
+    public UserProfile saveUserProfile(UserProfile userProfile) {
+        log.info("Saving new user {} to the database", userProfile.getUsername());
+        return userRepository.save(userProfile);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UserServiceImplementation implements UserService {
     @Override
     public void addRoleToUser(String username, String roleName) {
         log.info("Adding role {} to user {}", roleName, username);
-        User user = userRepository.findByUsername(username);
+        UserProfile user = userRepository.findByUsername(username);
         Role role = roleRepository.findByRoleName(roleName);
         user.getRoles().add(role);
     }
@@ -63,7 +63,7 @@ public class UserServiceImplementation implements UserService {
     @Override
     public void addMiniatureToUser(String username, String miniatureName) {
         log.info("Adding miniature {} to user {}", miniatureName, username);
-        User user = userRepository.findByUsername(username);
+        UserProfile user = userRepository.findByUsername(username);
         Miniature miniature = miniatureRepository.findByMiniatureName(miniatureName);
         user.getMiniatures().add(miniature);
     }
@@ -77,13 +77,13 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User getUser(String username) {
+    public UserProfile getUser(String username) {
         log.info("Fetching username: {}", username);
         return userRepository.findByUsername(username);
     }
 
     @Override
-    public List<User> getUsers() {
+    public List<UserProfile> getUsers() {
         log.info("Fetching all users");
         return userRepository.findAll();
     }

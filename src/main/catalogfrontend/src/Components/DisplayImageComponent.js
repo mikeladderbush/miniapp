@@ -10,7 +10,7 @@ function DisplayImageComponent({ miniature }) {
 
   const createImages = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/user/miniatures/${miniature.id}/images`);
+      const response = await axios.get(`http://localhost:8080/api/miniatures/${miniature.id}/images`);
       setImages(response.data);
     } catch (error) {
       console.log(error);

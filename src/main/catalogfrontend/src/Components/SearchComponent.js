@@ -8,7 +8,7 @@ function SearchComponent() {
   const [jsonData, setJsonData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/user/miniatures')
+    axios.get('http://localhost:8080/api/miniatures')
       .then(response => {
         setJsonData(response.data);
       })
@@ -24,7 +24,7 @@ function SearchComponent() {
   const handleFormSubmit = event => {
     event.preventDefault();
     const results = jsonData.filter(item => {
-      if (item.page.includes("http://localhost:3000/api/user/miniatures/1")) {
+      if (item.page.includes("http://localhost:3000/api/miniatures/1")) {
         return false;
       }
       return item.page && item.page.includes(searchQuery);

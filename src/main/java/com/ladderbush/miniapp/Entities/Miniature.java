@@ -36,9 +36,4 @@ public class Miniature {
     @JsonManagedReference
     private List<Image> images = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "username")
-    @JsonBackReference
-    private UserProfile user;
-
 }

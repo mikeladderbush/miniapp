@@ -13,7 +13,7 @@ function MiniatureDetail() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/user/miniatures/${id}`)
+      .get(`http://localhost:8080/api/miniatures/${id}`)
       .then((response) => {
         setMiniature(response.data);
         console.log(response.data);
@@ -31,7 +31,7 @@ function MiniatureDetail() {
   const handleUpdate = () => {
     const updatedMiniature = { ...miniature, ...updatedData };
 
-    axios.put(`http://localhost:8080/api/user/miniatures/${id}`, updatedMiniature)
+    axios.put(`http://localhost:8080/api/miniatures/${id}`, updatedMiniature)
       .then((response) => {
         console.log("Miniature updated:", response.data);
         setMiniature(response.data);
